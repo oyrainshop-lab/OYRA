@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<script>
+/* Firebase settings for OYRA Books */
+window.FIREBASE_CONFIG={apiKey:'AIzaSyDOCFuYv_aNfAFMkgsGambpqJCQvO74',authDomain:'oyra-in.firebaseapp.com',projectId:'oyra-in',storageBucket:'oyra-in.firebasestorage.app',messagingSenderId:'410082329133',appId:'1:410082329133:web:fb94c1590faeb17ea42ee4'};
+/* The owner's Gmail (full access). */
+window.OWNER_EMAIL='oyra.inshop@gmail.com';
+</script>
+<link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#050505"><link rel="icon" href="icon.svg">
+<title>OYRA Books – Accounting &amp; Billing</title>
+<style>
+:root{--bg:#f4f1f6;--card:#fff;--tx:#1f1a24;--mu:#7a7283;--bd:#e7e2ec;--pr:#7b2d5f;--pr2:#a8467f;--sb:#2a1424;--ok:#1f8a5b;--wa:#c77a12;--er:#c0392b;--sh:0 2px 10px rgba(40,10,40,.08)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#17111b;--card:#221a28;--tx:#f1ecf4;--mu:#a69cb0;--bd:#372c3f;--sb:#120a16;--sh:0 2px 10px rgba(0,0,0,.4)}}
+:root[data-theme="dark"]{--bg:#17111b;--card:#221a28;--tx:#f1ecf4;--mu:#a69cb0;--bd:#372c3f;--sb:#120a16;--sh:0 2px 10px rgba(0,0,0,.4)}
+:root[data-theme="gold"]{--bg:#0b0b0b;--card:#161616;--tx:#f5efe0;--mu:#a89f87;--bd:#2c2618;--pr:#b8901f;--pr2:#e8c55a;--sb:#050505;--ok:#3fc08a;--wa:#e8a93a;--er:#e65a4a;--sh:0 2px 14px rgba(0,0,0,.6)}
+:root[data-theme="gold"] aside{background:linear-gradient(180deg,#050505,#1a1406);color:#e6d9b0;border-right:1px solid #3a2f10}
+:root[data-theme="gold"] .logo{color:#e8c55a}
+:root[data-theme="gold"] .tag{color:#a8914a}
+:root[data-theme="gold"] aside a{color:#cdbf94}
+:root[data-theme="gold"] aside a.on{background:rgba(232,197,90,.16);color:#e8c55a}
+:root[data-theme="gold"] button.p,:root[data-theme="gold"] .chips button.on{color:#111}
+:root[data-theme="gold"] .chips button.on{background:var(--pr2);border-color:var(--pr2)}
+@media print{:root[data-theme="gold"] #M .mb,:root[data-theme="gold"] #M .mc{background:#fff}}
+:root[data-theme="green"]{--bg:#f3f8f4;--card:#fff;--tx:#14231a;--mu:#6b8074;--bd:#dbe7de;--pr:#1f7a4d;--pr2:#3fb274;--sb:#0f3d2a;--ok:#1f8a5b;--wa:#c77a12;--er:#c0392b;--sh:0 2px 10px rgba(15,61,42,.1)}
+:root[data-theme="green"] aside{background:linear-gradient(180deg,#0f3d2a,#17694a);color:#dcefe3}
+:root[data-theme="green"] .tag{color:#a9cdb9}
+:root[data-theme="green"] aside a{color:#cfe6d8}
+:root[data-theme="green"] aside a.on{color:#fff}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0}
+body{background:var(--bg);color:var(--tx);font:14px/1.45 "Segoe UI",system-ui,-apple-system,Roboto,sans-serif}
+:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+#app{display:flex;height:100%}
+aside{width:215px;background:linear-gradient(180deg,var(--sb),#4a1a3c);color:#e9dff0;padding:16px 10px;display:flex;flex-direction:column;gap:3px;flex-shrink:0}
+.logo{font:700 24px Georgia,serif;letter-spacing:4px;padding:4px 10px 2px;color:#fff}
+.tag{font-size:11px;color:#c9b6d3;padding:0 10px 14px;letter-spacing:1px}
+aside a{padding:10px 12px;border-radius:8px;cursor:pointer;display:flex;gap:10px;color:#d9cce2}
+aside a:hover{background:rgba(255,255,255,.08)}
+aside a.on{background:rgba(255,255,255,.16);color:#fff;font-weight:600}
+main{flex:1;overflow:auto;padding:20px 24px;min-width:0}
+.top{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:16px}
+h1{font-size:21px;margin:0}
+button{font:inherit;cursor:pointer;border-radius:8px;border:1px solid var(--bd);background:var(--card);color:var(--tx);padding:8px 14px}
+button.p{background:linear-gradient(135deg,var(--pr),var(--pr2));color:#fff;border:0;font-weight:600}
+button.s{padding:4px 9px;font-size:12px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;margin-bottom:16px}
+.card{background:var(--card);border-radius:12px;box-shadow:var(--sh);padding:16px;border:1px solid var(--bd)}
+.k{font-size:12px;color:var(--mu);text-transform:uppercase;letter-spacing:.5px}
+.v{font-size:24px;font-weight:700;margin-top:4px}
+.two{display:grid;grid-template-columns:2fr 1fr;gap:12px}
+.tw{overflow-x:auto}
+table{width:100%;border-collapse:collapse}
+th{font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:var(--mu);text-align:left;padding:9px 8px;border-bottom:1px solid var(--bd);white-space:nowrap}
+td{padding:10px 8px;border-bottom:1px solid var(--bd);white-space:nowrap}
+.r{text-align:right}
+.b{padding:2px 9px;border-radius:20px;font-size:11px;font-weight:600}
+.paid,.in{background:rgba(31,138,91,.15);color:var(--ok)}
+.due,.low{background:rgba(199,122,18,.18);color:var(--wa)}
+.out{background:rgba(192,57,43,.15);color:var(--er)}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+.chips button.on{background:var(--pr);color:#fff;border-color:var(--pr)}
+.bar{height:8px;border-radius:5px;background:var(--bd);overflow:hidden;margin:4px 0 10px}
+.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--pr),var(--pr2))}
+#M{position:fixed;inset:0;background:rgba(10,5,15,.55);display:none;align-items:center;justify-content:center;z-index:9;padding:12px}
+.mb{background:var(--card);border-radius:14px;width:min(560px,100%);max-height:92vh;display:flex;flex-direction:column}
+.mh{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;border-bottom:1px solid var(--bd)}
+.mc{padding:16px 18px;overflow:auto}
+.mf{display:flex;justify-content:flex-end;gap:8px;padding:12px 18px;border-top:1px solid var(--bd)}
+label{display:block;font-size:12px;color:var(--mu);margin:10px 0 3px}
+input,select{width:100%;font:inherit;padding:8px 10px;border-radius:8px;border:1px solid var(--bd);background:var(--bg);color:var(--tx)}
+.row{display:flex;gap:8px}
+.inv h2{margin:0;font-family:Georgia,serif;letter-spacing:3px;color:var(--pr)}
+.mu{color:var(--mu)}
+@media(max-width:760px){aside{width:64px}aside a span,.tag{display:none}.logo{font-size:13px;letter-spacing:1px}.two{grid-template-columns:1fr}main{padding:14px}}
+#L{position:fixed;inset:0;z-index:20;background:linear-gradient(135deg,#000,#1a1406);display:flex;align-items:center;justify-content:center;color:#f5efe0;padding:16px;text-align:center}.lb .logo,.lb .tag{color:#e8c55a}.lb{background:rgba(232,197,90,.06);border:1px solid rgba(232,197,90,.35);border-radius:16px;padding:32px 28px;max-width:360px}.lb .logo{font-size:34px}.lb p{color:#cdbf94;margin:14px 0}.lb button.p{background:linear-gradient(135deg,#b8901f,#e8c55a);color:#111}.lb button{width:100%;margin-top:8px}
+@media print{:root,:root[data-theme]{--bg:#fff;--card:#fff;--tx:#111;--mu:#555;--bd:#ddd;--sh:none}html,body,#app{height:auto}body{background:#fff;color:#111}main{overflow:visible;padding:0}aside,button,.chips,input,.mf{display:none!important}.card{box-shadow:none}body.mo main{display:none}body.mo #M{display:block!important;position:static;background:#fff}.mb{max-height:none;box-shadow:none}.mc{overflow:visible}}
+</style></head>
+<body>
+<div id="L"><div class="lb"><div class="logo">OYRA</div><div class="tag">BOOKS · BILLING</div><p id="lm">Loading…</p><button class="p" id="lg" onclick="window.FB&&FB.login()" style="display:none">Continue with Google</button><button id="lo" onclick="FB.logout()" style="display:none">Use a different account</button></div></div>
+<div id="app">
+<aside><div class="logo">OYRA</div><div class="tag">BOOKS · BILLING</div><div id="nav"></div><div style="flex:1"></div><div id="sv" class="tag" style="padding:0 12px"></div><button id="tg" class="s" onclick="toggleTheme()" style="margin:10px;background:transparent;color:inherit;border-color:rgba(255,255,255,.3)">🎨 <span>Theme</span></button><button class="s" onclick="FB.logout()" style="margin:0 10px 10px;background:transparent;color:inherit;border-color:rgba(255,255,255,.3)">⎋ <span>Sign out</span></button></aside>
+<main><div id="v"></div></main>
+</div>
+<div id="M"></div>
+<script>
+const K='oyra-books-v1',CATS=['Perfume','Accessories','Air Freshener','Toys'];
+const $=id=>document.getElementById(id);
+const fmt=n=>'₹'+(+n||0).toLocaleString('en-IN',{maximumFractionDigits:2});
+const day=n=>{const d=new Date();d.setDate(d.getDate()-n);return d.toISOString().slice(0,10)};
+const uid=()=>Math.random().toString(36).slice(2,9);
+let S={items:[],cust:[],inv:[],exp:[],pur:[]},ROLE=null,EMAIL='',SEEDED=false,STF=[],RAF=0;
+const O=()=>ROLE==='owner';
+function sv(t){const e=$('sv');if(e)e.textContent=t}
+function save(){if(window.FB&&ROLE)FB.sync(S)}
+const SORT={items:(a,b)=>a.cat.localeCompare(b.cat)||a.name.localeCompare(b.name),cust:(a,b)=>a.name.localeCompare(b.name),inv:(a,b)=>a.date<b.date?-1:a.date>b.date?1:a.no<b.no?-1:a.no>b.no?1:0,exp:(a,b)=>a.date<b.date?-1:1,pur:(a,b)=>a.date<b.date?-1:1};
+function onData(c,arr,fc){S[c]=arr.sort(SORT[c]);if(c==='cust'&&!fc&&!S.cust.length&&O()&&!SEEDED){SEEDED=true;S.cust.push({id:uid(),name:'Walk-in Customer',phone:'\u2014'});save()}cancelAnimationFrame(RAF);RAF=requestAnimationFrame(render)}
+function onStaff(l){STF=l;if(tab==='staff')render()}
+function onAuth(role,email){ROLE=role;EMAIL=email||'';const L=$('L');
+ if(role){L.style.display='none';if(!O()&&!['dash','sales','items','cust'].includes(tab))tab='dash';sv(EMAIL+' \u00b7 '+role);render()}
+ else{S={items:[],cust:[],inv:[],exp:[],pur:[]};L.style.display='flex';$('lm').textContent=email?email+' is not approved yet. Ask the owner to add this email under Staff.':'Sign in to continue';$('lg').style.display=email?'none':'';$('lo').style.display=email?'':'none'}}
+function authErr(e){$('lm').textContent=e.code?'Sign-in error: '+e.code:(e.message||'Error');$('lg').style.display=window.FB?'':'none'}
+function staff(){return head('Staff access',`<button class="p" onclick="addStaff()">+ Add staff</button>`)+`<div class="card"><p class="mu">Owner: ${EMAIL}. Staff sign in with their own Google account. They can bill, see stock and customers, but cannot see cost, profit, expenses, reports or staff settings.</p><div class="tw"><table>${STF.map(e=>`<tr><td>${e}</td><td class="r"><button class="s" onclick="FB.delStaff('${e}')">Remove</button></td></tr>`).join('')||'<tr><td class="mu">No staff added yet.</td></tr>'}</table></div></div>`}
+function addStaff(){modal('Add staff',`<label>Gmail address</label><input id="se" type="email" placeholder="name@gmail.com">`,()=>{const e=$('se').value.trim().toLowerCase();if(!/^\S+@\S+\.\S+$/.test(e))return false;FB.addStaff(e)})}
+let HSV=false;try{HSV=localStorage.getItem('oyra-hsv')==='1'}catch(e){}
+function toggleSV(){HSV=!HSV;try{localStorage.setItem('oyra-hsv',HSV?'1':'0')}catch(e){}render()}
+function waSend(id){
+ const i=S.inv.find(x=>x.id===id);if(!i)return;
+ const c=S.cust.find(x=>x.id===i.cust)||{},d=(c.phone||'').replace(/\D/g,'');
+ const num=d.length===10?'91'+d:d.length>=11?d.replace(/^0+/,''):'';
+ const s=sub(i),T=tot(i);
+ const tx='*OYRA*\nInvoice '+i.no+' \u00b7 '+i.date+'\nCustomer: '+(c.name||'')+'\n\n'+i.lines.map(l=>l.name+' x '+l.qty+' = '+fmt(l.qty*l.price*(1+l.gst/100))).join('\n')+'\n\nGST: '+fmt(T-s)+'\n*Total: '+fmt(T)+'*\nStatus: '+(i.paid?'PAID':'UNPAID')+'\n\nThank you for shopping with OYRA!';
+ window.open('https://wa.me/'+num+'?text='+encodeURIComponent(tx),'_blank')
+}
+function backup(){const b=new Blob([JSON.stringify({app:'oyra-books',date:day(0),...S})],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='oyra-backup-'+day(0)+'.json';a.click()}
+function restoreUI(){modal('Restore backup',`<p class="mu">This replaces ALL current data with the data in the backup file.</p><input type="file" id="rf" accept=".json">`,()=>{const f=$('rf').files[0];if(!f)return false;f.text().then(x=>{try{const d=JSON.parse(x);if(d.app!=='oyra-books')throw 0;['items','cust','inv','exp','pur'].forEach(c=>{S[c]=d[c]||[]});save();render()}catch(e){alert('This is not a valid OYRA backup file.')}})},'Restore')}
+const tot=i=>i.lines.reduce((a,l)=>a+l.qty*l.price*(1+l.gst/100),0);
+const sub=i=>i.lines.reduce((a,l)=>a+l.qty*l.price,0);
+const cn=id=>(S.cust.find(c=>c.id===id)||{name:'—'}).name;
+const it$=id=>S.items.find(x=>x.id===id);
+let tab='dash',cat='All';
+const TABS=[['dash','▦','Dashboard'],['sales','🧾','Sales Invoices'],['items','📦','Items & Stock'],['pur','🛒','Purchases'],['cust','👥','Customers'],['exp','💸','Expenses'],['rep','📊','Reports'],['staff','👤','Staff']];
+function go(t){tab=t;render()}
+function render(){if(!ROLE)return;
+ $('nav').innerHTML=TABS.filter(t=>O()||['dash','sales','items','cust'].includes(t[0])).map(t=>`<a class="${t[0]===tab?'on':''}" onclick="go('${t[0]}')">${t[1]} <span>${t[2]}</span></a>`).join('');
+ $('v').innerHTML=({dash,sales,items,pur,cust,exp,rep,staff})[tab]();
+}
+const head=(t,btn)=>`<div class="top"><h1>${t}</h1><div><button onclick="window.print()">⬇ PDF</button> ${btn||''}</div></div>`;
+const mon=d=>d.slice(0,7)===day(0).slice(0,7);
+let DP='7',DF='',DT='';
+const PL=[['today','Today'],['7','7 days'],['30','30 days'],['month','This month'],['year','This year'],['all','All time'],['custom','Custom']];
+function setDP(p){DP=p;render()}
+function drange(){const t=day(0);
+ if(DP==='today')return[t,t];if(DP==='7')return[day(6),t];if(DP==='30')return[day(29),t];if(DP==='month')return[t.slice(0,7)+'-01',t];if(DP==='year')return[t.slice(0,4)+'-01-01',t];
+ if(DP==='custom')return[DF||day(29),DT||t];
+ return[S.inv.reduce((a,i)=>i.date<a?i.date:a,t),t]}
+function dash(){
+ const[a,b]=drange(),F=S.inv.filter(i=>i.date>=a&&i.date<=b);
+ const sales=F.reduce((s,i)=>s+tot(i),0),gp=F.reduce((s,i)=>s+sub(i)-i.lines.reduce((c,l)=>c+l.qty*l.cost,0),0),ex=S.exp.filter(e=>e.date>=a&&e.date<=b).reduce((s,e)=>s+e.amt,0),due=F.filter(i=>!i.paid).reduce((s,i)=>s+tot(i),0),svv=S.items.reduce((s,x)=>s+x.stock*x.cost,0);
+ const ds=[];for(let d=new Date(a),e=new Date(b);d<=e&&ds.length<1100;d.setUTCDate(d.getUTCDate()+1))ds.push(d.toISOString().slice(0,10));
+ const sp=ds.length,B={},ord=[];
+ ds.forEach((d,i)=>{const k=sp<=14?d:sp<=62?'w'+Math.floor(i/7):d.slice(0,7);if(!B[k]){B[k]={l:sp<=62?d.slice(8)+'/'+d.slice(5,7):d.slice(0,7),v:0,ds:[]};ord.push(k)}B[k].ds.push(d)});
+ F.forEach(i=>{const k=ord.find(k=>B[k].ds.includes(i.date));if(k)B[k].v+=tot(i)});
+ const bs=ord.slice(-12).map(k=>B[k]),n=bs.length||1,mx=Math.max(1,...bs.map(x=>x.v)),st=420/n,w=Math.min(40,st*.6);
+ const svg=`<svg viewBox='0 0 420 170' width='100%'>${bs.map((x,i)=>{const h=x.v/mx*120,cx=i*st+st/2;return `<rect x='${cx-w/2}' y='${140-h}' width='${w}' height='${h}' rx='5' fill='var(--pr2)'/><text x='${cx}' y='158' text-anchor='middle' font-size='10' fill='var(--mu)'>${x.l}</text><text x='${cx}' y='${134-h}' text-anchor='middle' font-size='10' fill='var(--tx)'>${x.v?Math.round(x.v/100)/10+'k':''}</text>`}).join('')}</svg>`;
+ const cs=CATS.map(c=>({c,v:F.reduce((s,i)=>s+i.lines.filter(l=>l.cat===c).reduce((q,l)=>q+l.qty*l.price,0),0)})),cm=Math.max(1,...cs.map(x=>x.v)),low=S.items.filter(x=>x.stock<=5);
+ const flt=`<div class='chips'>${PL.map(p=>`<button class='${p[0]===DP?'on':''}' data-p='${p[0]}' onclick='setDP(this.dataset.p)'>${p[1]}</button>`).join('')}</div>`+(DP==='custom'?`<div class='row' style='margin-bottom:12px;max-width:380px'><input type='date' value='${a}' max='${day(0)}' onchange='DF=this.value;render()'><input type='date' value='${b}' onchange='DT=this.value;render()'></div>`:'')+`<div class='mu' style='margin:-4px 0 12px'>${a===b?a:a+' to '+b} · ${F.length} invoices</div>`;
+ return head('Dashboard',`${O()?`<button onclick='RP=DP;RF=DF;RT=DT;openRep()'>📄 Sales report</button>`:''} <button class='p' onclick='newInv()'>+ New Invoice</button>`)+flt+`<div class='grid'><div class='card'><div class='k'>Sales</div><div class='v'>${fmt(sales)}</div></div>${O()?`<div class='card'><div class='k'>Gross profit</div><div class='v' style='color:var(--ok)'>${fmt(gp)}</div></div><div class='card'><div class='k'>Expenses</div><div class='v'>${fmt(ex)}</div></div>`:''}<div class='card'><div class='k'>To receive</div><div class='v' style='color:var(--wa)'>${fmt(due)}</div></div>${O()?`<div class='card'><div class='k'>Stock value (now) <button class='s' onclick='toggleSV()' style='float:right;padding:1px 8px'>${HSV?'Show':'Hide'}</button></div><div class='v'>${HSV?'\u20b9 \u2022\u2022\u2022\u2022\u2022':fmt(svv)}</div></div>`:''}</div><div class='two'><div class='card'><div class='k'>Sales trend</div>${svg}</div><div class='card'><div class='k'>Sales by category</div><div style='margin-top:10px'>${cs.map(x=>`<div style='display:flex;justify-content:space-between'><span>${x.c}</span><b>${fmt(x.v)}</b></div><div class='bar'><i style='width:${x.v/cm*100}%'></i></div>`).join('')}</div></div></div><div class='card' style='margin-top:12px'><div class='k'>Low stock alerts</div>${low.length?`<div class='tw'><table>${low.map(x=>`<tr><td>${x.name}</td><td>${x.cat}</td><td class='r'><span class='b ${x.stock?'low':'out'}'>${x.stock?x.stock+' left':'Out of stock'}</span></td></tr>`).join('')}</table></div>`:`<p class='mu'>All items well stocked.</p>`}</div>`;
+}
+let RP='today',RF='',RT='';
+function rrange(){const t=day(0);if(RP==='today')return[t,t];if(RP==='7')return[day(6),t];if(RP==='30')return[day(29),t];if(RP==='month')return[t.slice(0,7)+'-01',t];if(RP==='year')return[t.slice(0,4)+'-01-01',t];if(RP==='custom')return[RF||day(29),RT||t];return[S.inv.reduce((a,i)=>i.date<a?i.date:a,t),t]}
+function openRep(){
+ const[a,b]=rrange(),F=S.inv.filter(i=>i.date>=a&&i.date<=b).sort((x,y)=>x.date<y.date?-1:1);
+ const net=F.reduce((s,i)=>s+sub(i),0),all=F.reduce((s,i)=>s+tot(i),0),cogs=F.reduce((s,i)=>s+i.lines.reduce((c,l)=>c+l.qty*l.cost,0),0),paid=F.filter(i=>i.paid).reduce((s,i)=>s+tot(i),0);
+ const m={};F.forEach(i=>i.lines.forEach(l=>{const o=m[l.name]||(m[l.name]={q:0,v:0});o.q+=l.qty;o.v+=l.qty*l.price*(1+l.gst/100)}));
+ const rows=Object.entries(m).sort((x,y)=>y[1].v-x[1].v),kv=(k,v)=>`<tr><td>${k}</td><td class='r'><b>${v}</b></td></tr>`,h3=t=>`<h3 style='margin:16px 0 4px'>${t}</h3>`;
+ const ctl=`<div class='chips' style='align-items:center'><select style='width:auto' onchange='RP=this.value;openRep()'>${PL.map(p=>`<option value='${p[0]}' ${p[0]===RP?'selected':''}>${p[1]}</option>`).join('')}</select>${RP==='custom'?`<input type='date' style='width:auto' value='${a}' onchange='RF=this.value;openRep()'><input type='date' style='width:auto' value='${b}' onchange='RT=this.value;openRep()'>`:''}</div>`;
+ modal('Sales report',ctl+`<div class='inv'><h2>OYRA</h2><div class='mu'>Sales Report · ${a===b?a:a+' to '+b}</div><div class='mu'>Generated ${day(0)}</div>${h3('Summary')}<table>${kv('Invoices',F.length)}${kv('Sales (excl. GST)',fmt(net))}${kv('GST',fmt(all-net))}${kv('Total sales',fmt(all))}${kv('Gross profit',fmt(net-cogs))}${kv('Received',fmt(paid))}${kv('Unpaid',fmt(all-paid))}</table>${h3('Category-wise')}<table><tr><th>Category</th><th class='r'>Qty</th><th class='r'>Sales (excl. GST)</th></tr>${CATS.map(c=>{const L=F.flatMap(i=>i.lines).filter(l=>l.cat===c);return `<tr><td>${c}</td><td class='r'>${L.reduce((s,l)=>s+l.qty,0)}</td><td class='r'>${fmt(L.reduce((s,l)=>s+l.qty*l.price,0))}</td></tr>`}).join('')}</table>${h3('Items sold')}${rows.length?`<table><tr><th>Item</th><th class='r'>Qty</th><th class='r'>Amount</th></tr>${rows.map(r=>`<tr><td>${r[0]}</td><td class='r'>${r[1].q}</td><td class='r'>${fmt(r[1].v)}</td></tr>`).join('')}</table>`:`<p class='mu'>No sales in this period.</p>`}${h3('Invoices')}${F.length?`<table><tr><th>No.</th><th>Date</th><th>Customer</th><th class='r'>Amount</th><th>Status</th></tr>${F.map(i=>`<tr><td>${i.no}</td><td>${i.date}</td><td>${cn(i.cust)}</td><td class='r'>${fmt(tot(i))}</td><td>${i.paid?'Paid':'Unpaid'}</td></tr>`).join('')}</table>`:`<p class='mu'>No invoices.</p>`}</div>`,()=>{window.print();return false},'Print / PDF');
+}
+function dashOld(){
+ const today=S.inv.filter(i=>i.date===day(0)).reduce((a,i)=>a+tot(i),0);
+ const month=S.inv.filter(i=>mon(i.date)).reduce((a,i)=>a+tot(i),0);
+ const due=S.inv.filter(i=>!i.paid).reduce((a,i)=>a+tot(i),0);
+ const sv=S.items.reduce((a,x)=>a+x.stock*x.cost,0);
+ const days=[6,5,4,3,2,1,0].map(n=>({d:day(n),v:S.inv.filter(i=>i.date===day(n)).reduce((a,i)=>a+tot(i),0)}));
+ const mx=Math.max(1,...days.map(x=>x.v));
+ const svg=`<svg viewBox="0 0 420 170" width="100%">${days.map((x,i)=>{const h=x.v/mx*120;return `<rect x="${i*60+12}" y="${140-h}" width="36" height="${h}" rx="5" fill="var(--pr2)"/><text x="${i*60+30}" y="158" text-anchor="middle" font-size="11" fill="var(--mu)">${x.d.slice(8)}/${x.d.slice(5,7)}</text><text x="${i*60+30}" y="${134-h}" text-anchor="middle" font-size="10" fill="var(--tx)">${x.v?Math.round(x.v/1000*10)/10+'k':''}</text>`}).join('')}</svg>`;
+ const cs=CATS.map(c=>({c,v:S.inv.reduce((a,i)=>a+i.lines.filter(l=>l.cat===c).reduce((b,l)=>b+l.qty*l.price,0),0)}));const cm=Math.max(1,...cs.map(x=>x.v));
+ const low=S.items.filter(x=>x.stock<=5);
+ return head('Dashboard',`<button class="p" onclick="newInv()">+ New Invoice</button>`)+`
+ <div class="grid"><div class="card"><div class="k">Today’s sales</div><div class="v">${fmt(today)}</div></div><div class="card"><div class="k">This month</div><div class="v">${fmt(month)}</div></div><div class="card"><div class="k">To receive</div><div class="v" style="color:var(--wa)">${fmt(due)}</div></div><div class="card"><div class="k">Stock value</div><div class="v">${fmt(sv)}</div></div></div>
+ <div class="two"><div class="card"><div class="k">Sales – last 7 days</div>${svg}</div>
+ <div class="card"><div class="k">Sales by category</div><div style="margin-top:10px">${cs.map(x=>`<div style="display:flex;justify-content:space-between"><span>${x.c}</span><b>${fmt(x.v)}</b></div><div class="bar"><i style="width:${x.v/cm*100}%"></i></div>`).join('')}</div></div></div>
+ <div class="card" style="margin-top:12px"><div class="k">Low stock alerts</div>${low.length?`<div class="tw"><table>${low.map(x=>`<tr><td>${x.name}</td><td>${x.cat}</td><td class="r"><span class="b ${x.stock?'low':'out'}">${x.stock?x.stock+' left':'Out of stock'}</span></td></tr>`).join('')}</table></div>`:'<p class="mu">All items well stocked.</p>'}</div>`;
+}
+function sales(){
+ return head('Sales Invoices',`${O()?`<button onclick="openRep()">📄 Sales report</button>`:''} <button class="p" onclick="newInv()">+ New Invoice</button>`)+`<div class="card tw"><table><tr><th>No.</th><th>Date</th><th>Customer</th><th class="r">Amount</th><th>Status</th><th></th></tr>${[...S.inv].reverse().map(i=>`<tr><td>${i.no}</td><td>${i.date}</td><td>${cn(i.cust)}</td><td class="r">${fmt(tot(i))}</td><td><span class="b ${i.paid?'paid':'due'}">${i.paid?'Paid':'Unpaid'}</span></td><td class="r"><button class="s" onclick="view('${i.id}')">View</button> <button class="s" onclick="waSend('${i.id}')">WhatsApp</button> ${i.paid?'':`<button class="s" onclick="pay('${i.id}')">Mark paid</button>`}</td></tr>`).join('')}</table></div>`;
+}
+function pay(id){S.inv.find(i=>i.id===id).paid=true;save();render()}
+function view(id){
+ const i=S.inv.find(x=>x.id===id),s=sub(i),g=tot(i)-s;
+ modal('Invoice '+i.no,`<div class="inv"><h2>OYRA</h2><div class="mu">Perfumes · Accessories · Air Fresheners · Toys</div><hr style="border:0;border-top:1px solid var(--bd)"><div class="row" style="justify-content:space-between"><div><b>Bill to:</b><br>${cn(i.cust)}</div><div class="r">No: ${i.no}<br>Date: ${i.date}</div></div><div class="tw"><table style="margin-top:10px"><tr><th>Item</th><th class="r">Qty</th><th class="r">Rate</th><th class="r">GST</th><th class="r">Total</th></tr>${i.lines.map(l=>`<tr><td>${l.name}</td><td class="r">${l.qty}</td><td class="r">${fmt(l.price)}</td><td class="r">${l.gst}%</td><td class="r">${fmt(l.qty*l.price*(1+l.gst/100))}</td></tr>`).join('')}</table></div><p class="r">Subtotal ${fmt(s)}<br>GST ${fmt(g)}<br><b style="font-size:18px">Total ${fmt(s+g)}</b></p><p class="mu">Status: ${i.paid?'PAID':'UNPAID'} · Thank you for shopping with OYRA</p><button class="p" onclick="waSend('${i.id}')">Send on WhatsApp</button></div>`,()=>{window.print();return false},'Print / PDF');
+}
+function items(){
+ const l=S.items.filter(x=>cat==='All'||x.cat===cat);
+ return head('Items & Stock',O()?`<button class="p" onclick="addItem()">+ Add Item</button>`:'')+`<div class="chips">${['All',...CATS].map(c=>`<button class="${c===cat?'on':''}" onclick="cat='${c}';render()">${c}</button>`).join('')}</div><div class="card tw"><table><tr><th>Item</th><th>Category</th>${O()?'<th class="r">Cost</th>':''}<th class="r">Price</th><th class="r">GST</th><th class="r">Stock</th><th></th></tr>${l.map(x=>`<tr><td>${x.name}</td><td>${x.cat}</td>${O()?`<td class="r">${fmt(x.cost)}</td>`:''}<td class="r">${fmt(x.price)}</td><td class="r">${x.gst}%</td><td class="r"><span class="b ${x.stock>5?'in':x.stock?'low':'out'}">${x.stock}</span></td><td class="r">${O()?`<button class="s" onclick="delItem('${x.id}')">Delete</button>`:''}</td></tr>`).join('')}</table></div>`;
+}
+function delItem(id){if(confirm('Delete this item?')){S.items=S.items.filter(x=>x.id!==id);save();render()}}
+function addItem(){
+ modal('Add item',`<label>Name</label><input id="n"><label>Category</label><select id="c">${CATS.map(c=>`<option>${c}</option>`).join('')}</select><div class="row"><div><label>Cost ₹</label><input id="co" type="number"></div><div><label>Selling price ₹</label><input id="pr" type="number"></div></div><div class="row"><div><label>Opening stock</label><input id="st" type="number" value="0"></div><div><label>GST %</label><select id="g"><option>0</option><option>3</option><option>5</option><option>12</option><option selected>18</option></select></div></div>`,()=>{
+  if(!$('n').value.trim())return false;
+  S.items.push({id:uid(),name:$('n').value.trim(),cat:$('c').value,cost:+$('co').value||0,price:+$('pr').value||0,stock:+$('st').value||0,gst:+$('g').value});save();render()});
+}
+function pur(){
+ return head('Purchases',`<button class="p" onclick="addPur()">+ Add Purchase</button>`)+`<div class="card tw"><table><tr><th>Date</th><th>Supplier</th><th>Item</th><th class="r">Qty</th><th class="r">Cost</th><th class="r">Total</th></tr>${[...S.pur].reverse().map(p=>`<tr><td>${p.date}</td><td>${p.sup}</td><td>${(it$(p.item)||{name:'—'}).name}</td><td class="r">${p.qty}</td><td class="r">${fmt(p.cost)}</td><td class="r">${fmt(p.qty*p.cost)}</td></tr>`).join('')}</table></div>`;
+}
+function addPur(){
+ modal('Add purchase (stock in)',`<label>Supplier</label><input id="su"><label>Item</label><select id="it">${S.items.map(x=>`<option value="${x.id}">${x.name}</option>`).join('')}</select><div class="row"><div><label>Quantity</label><input id="q" type="number" value="1"></div><div><label>Cost per unit ₹</label><input id="c" type="number"></div></div>`,()=>{
+  const q=+$('q').value,c=+$('c').value;if(!q||!c)return false;
+  const x=it$($('it').value);if(!x)return false;x.stock+=q;x.cost=c;S.pur.push({id:uid(),date:day(0),sup:$('su').value||'—',item:x.id,qty:q,cost:c});save();render()});
+}
+function cust(){
+ return head('Customers',`<button class="p" onclick="addCust()">+ Add Customer</button>`)+`<div class="card tw"><table><tr><th>Name</th><th>Phone</th><th class="r">Total billed</th><th class="r">Balance due</th></tr>${S.cust.map(c=>{const a=S.inv.filter(i=>i.cust===c.id);return `<tr><td>${c.name}</td><td>${c.phone}</td><td class="r">${fmt(a.reduce((s,i)=>s+tot(i),0))}</td><td class="r">${fmt(a.filter(i=>!i.paid).reduce((s,i)=>s+tot(i),0))}</td></tr>`}).join('')}</table></div>`;
+}
+function addCust(){
+ modal('Add customer',`<label>Name</label><input id="n"><label>Phone (WhatsApp number)</label><input id="p" type="tel" placeholder="98470 11122">`,()=>{if(!$('n').value.trim())return false;S.cust.push({id:uid(),name:$('n').value.trim(),phone:$('p').value||'—'});save();render()});
+}
+function exp(){
+ return head('Expenses',`<button class="p" onclick="addExp()">+ Add Expense</button>`)+`<div class="card tw"><table><tr><th>Date</th><th>Details</th><th class="r">Amount</th></tr>${[...S.exp].reverse().map(e=>`<tr><td>${e.date}</td><td>${e.title}</td><td class="r">${fmt(e.amt)}</td></tr>`).join('')}</table></div>`;
+}
+function addExp(){
+ modal('Add expense',`<label>Details</label><input id="t" placeholder="Rent, salary, packaging…"><label>Amount ₹</label><input id="a" type="number">`,()=>{if(!$('t').value||!+$('a').value)return false;S.exp.push({id:uid(),date:day(0),title:$('t').value,amt:+$('a').value});save();render()});
+}
+function rep(){
+ const rev=S.inv.reduce((a,i)=>a+sub(i),0),gst=S.inv.reduce((a,i)=>a+tot(i)-sub(i),0),cogs=S.inv.reduce((a,i)=>a+i.lines.reduce((b,l)=>b+l.qty*l.cost,0),0),ex=S.exp.reduce((a,e)=>a+e.amt,0),gp=rev-cogs,np=gp-ex;
+ const row=(a,b,s)=>`<tr><td ${s||''}>${a}</td><td class="r" ${s||''}>${fmt(b)}</td></tr>`;
+ return head('Reports',`<button onclick="backup()">⬇ Backup</button> <button onclick="restoreUI()">Restore</button>`)+`<div class="two"><div class="card"><div class="k">Profit &amp; Loss</div><table>${row('Sales (excl. GST)',rev)}${row('Cost of goods sold',-cogs)}${row('Gross profit',gp,'style="font-weight:700"')}${row('Expenses',-ex)}${row('Net profit',np,`style="font-weight:700;color:${np>=0?'var(--ok)':'var(--er)'}"`)}</table></div><div class="card"><div class="k">GST collected</div><div class="v">${fmt(gst)}</div><p class="mu">Output GST on all invoices, ready for GSTR-1 filing.</p></div></div><div class="card" style="margin-top:12px"><div class="k">Category-wise profit</div><table><tr><th>Category</th><th class="r">Sales</th><th class="r">Profit</th></tr>${CATS.map(c=>{const L=S.inv.flatMap(i=>i.lines).filter(l=>l.cat===c);return `<tr><td>${c}</td><td class="r">${fmt(L.reduce((a,l)=>a+l.qty*l.price,0))}</td><td class="r">${fmt(L.reduce((a,l)=>a+l.qty*(l.price-l.cost),0))}</td></tr>`}).join('')}</table></div>`;
+}
+let L=[];
+function newInv(){
+ L=[];
+ modal('New sales invoice',`<div class="row"><div><label>Customer</label><select id="cu">${S.cust.map(c=>`<option value="${c.id}">${c.name}</option>`).join('')}</select></div><div><label>Payment</label><select id="pd"><option value="1">Paid</option><option value="0">Unpaid</option></select></div></div><label>Add item</label><div class="row"><select id="ai">${S.items.map(x=>`<option value="${x.id}">${x.name} (${x.stock} in stock) – ${fmt(x.price)}</option>`).join('')}</select><input id="aq" type="number" value="1" style="width:70px"><button onclick="addLine()">Add</button></div><div id="ll" style="margin-top:12px"></div><label style="display:flex;gap:8px;align-items:center;color:var(--tx);margin-top:14px"><input type="checkbox" id="wa" style="width:auto"> Send bill on WhatsApp after saving</label>`,()=>{
+  if(!L.length)return false;
+  const n='OY-'+(1001+S.inv.length);const nv={id:uid(),no:n,date:day(0),cust:$('cu').value,lines:L.map(l=>({...l})),paid:$('pd').value==='1'};S.inv.push(nv);
+  L.forEach(l=>{it$(l.id).stock-=l.qty});const w=$('wa').checked;save();render();if(w)waSend(nv.id)},'Save invoice');
+ draw();
+}
+function addLine(){
+ const x=it$($('ai').value),q=+$('aq').value;if(!x||!q||q<1)return;
+ const e=L.find(l=>l.id===x.id);if(e)e.qty+=q;else L.push({id:x.id,name:x.name,cat:x.cat,qty:q,price:x.price,cost:x.cost,gst:x.gst});draw();
+}
+function draw(){
+ const t=L.reduce((a,l)=>a+l.qty*l.price*(1+l.gst/100),0);
+ $('ll').innerHTML=L.length?`<table>${L.map((l,i)=>`<tr><td>${l.name}</td><td class="r">${l.qty} × ${fmt(l.price)}</td><td class="r">${fmt(l.qty*l.price*(1+l.gst/100))}</td><td class="r"><button class="s" onclick="L.splice(${i},1);draw()">✕</button></td></tr>`).join('')}</table><p class="r"><b style="font-size:17px">Total incl. GST: ${fmt(t)}</b></p>`:'<p class="mu">No items added yet.</p>';
+}
+function modal(t,b,ok,txt){
+ $('M').innerHTML=`<div class="mb"><div class="mh"><b>${t}</b><button class="s" onclick="closeM()">✕</button></div><div class="mc">${b}</div><div class="mf"><button onclick="closeM()">Close</button><button class="p" id="ok">${txt||'Save'}</button></div></div>`;
+ document.body.classList.add('mo');$('M').style.display='flex';$('ok').onclick=()=>{if(ok()!==false)closeM()};
+}
+function closeM(){document.body.classList.remove('mo');$('M').style.display='none';$('M').innerHTML=''}
+let TH='gold';try{const q=localStorage.getItem('oyra-theme');if(q!==null)TH=q}catch(e){}
+function applyTheme(){if(TH)document.documentElement.setAttribute('data-theme',TH);else document.documentElement.removeAttribute('data-theme')}
+function toggleTheme(){TH=TH===''?'gold':TH==='gold'?'green':'';try{localStorage.setItem('oyra-theme',TH)}catch(e){}applyTheme()}
+applyTheme();render();
+</script><script type="module">
+import{initializeApp}from'https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js';
+import{getAuth,GoogleAuthProvider,signInWithPopup,signInWithRedirect,onAuthStateChanged,signOut}from'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
+import{initializeFirestore,persistentLocalCache,persistentMultipleTabManager,collection,doc,setDoc,deleteDoc,getDoc,onSnapshot}from'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
+const C=window.FIREBASE_CONFIG||{},OWN=(window.OWNER_EMAIL||'').toLowerCase(),COL=['items','cust','inv','exp','pur'];
+const sj=o=>JSON.stringify(o,(k,v)=>v&&typeof v==='object'&&!Array.isArray(v)?Object.keys(v).sort().reduce((a,x)=>(a[x]=v[x],a),{}):v);
+if(!C.apiKey||C.apiKey.startsWith('PASTE')){authErr({message:'Firebase settings are not added yet. Open index.html and paste them at the top.'})}
+else{
+const app=initializeApp(C),auth=getAuth(app),db=initializeFirestore(app,{localCache:persistentLocalCache({tabManager:persistentMultipleTabManager()})});
+let M={},R={},U=[];
+const reset=()=>{U.forEach(f=>f());U=[];COL.forEach(c=>{M[c]={};R[c]={}})};reset();
+const bad=e=>{console.error(e);sv('Not synced: '+(e.code||'error'))};
+window.FB={
+ login(){const p=new GoogleAuthProvider();signInWithPopup(auth,p).catch(e=>{if(e.code==='auth/popup-blocked')signInWithRedirect(auth,p);else if(e.code!=='auth/popup-closed-by-user')authErr(e)})},
+ logout(){signOut(auth)},
+ sync(S){COL.forEach(c=>{const cur={};S[c].forEach(x=>{cur[x.id]=x});Object.keys(cur).forEach(id=>{const j=sj(cur[id]);if(R[c][id]!==j){R[c][id]=j;setDoc(doc(db,c,id),cur[id]).catch(bad)}});Object.keys(R[c]).forEach(id=>{if(!cur[id]){delete R[c][id];deleteDoc(doc(db,c,id)).catch(bad)}})})},
+ addStaff(e){setDoc(doc(db,'staff',e),{email:e}).catch(bad)},
+ delStaff(e){deleteDoc(doc(db,'staff',e)).catch(bad)}
+};
+onAuthStateChanged(auth,async u=>{
+ reset();
+ if(!u){onAuth(null);return}
+ const e=(u.email||'').toLowerCase();let role=null;
+ if(e===OWN)role='owner';else{try{role=(await getDoc(doc(db,'staff',e))).exists()?'staff':null}catch(x){}}
+ onAuth(role,e);
+ if(!role)return;
+ COL.forEach(c=>U.push(onSnapshot(collection(db,c),s=>{s.docChanges().forEach(ch=>{const id=ch.doc.id;if(ch.type==='removed'){delete M[c][id];delete R[c][id]}else{M[c][id]=ch.doc.data();R[c][id]=sj(M[c][id])}});onData(c,Object.values(M[c]),s.metadata.fromCache);if(!s.metadata.fromCache&&!s.metadata.hasPendingWrites)sv(EMAIL+' \u00b7 '+role+' \u00b7 synced')},bad)));
+ if(role==='owner')U.push(onSnapshot(collection(db,'staff'),s=>onStaff(s.docs.map(d=>d.id).sort()),bad));
+});
+}
+</script>
+<script>if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(function(){})</script>
+</body></html>
