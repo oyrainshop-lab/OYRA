@@ -3,7 +3,23 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <script>
 /* Firebase settings for OYRA Books */
-window.FIREBASE_CONFIG={apiKey:'AIzaSyDOCFuYv_aNfAFMkgsGambpqJCQvO74',authDomain:'oyra-in.firebaseapp.com',projectId:'oyra-in',storageBucket:'oyra-in.firebasestorage.app',messagingSenderId:'410082329133',appId:'1:410082329133:web:fb94c1590faeb17ea42ee4'};
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyD0CFuVw_aNfA4fMkgsGsmibpqLjCQvO74",
+  authDomain: "oyra-in.firebaseapp.com",
+  projectId: "oyra-in",
+  storageBucket: "oyra-in.firebasestorage.app",
+  messagingSenderId: "410082329133",
+  appId: "1:410082329133:web:fd84c1596faeb17ae42ea4"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
 /* The owner's Gmail (full access). */
 window.OWNER_EMAIL='oyra.inshop@gmail.com';
 </script>
