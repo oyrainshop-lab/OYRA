@@ -3,7 +3,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <script>
 /* Firebase settings for OYRA Books */
-window.FIREBASE_CONFIG={apiKey:'AIzaSyDOCFuYv_aNfAFMkgsGambpqJCQvO74',authDomain:'oyra-in.firebaseapp.com',projectId:'oyra-in',storageBucket:'oyra-in.firebasestorage.app',messagingSenderId:'410082329133',appId:'1:410082329133:web:fb94c1590faeb17ea42ee4'};
+window.FIREBASE_CONFIG={apiKey:'AIzaSyD0CFuVw_aNfA4fMkgsGsmibpqLjCQvO74',authDomain:'oyra-in.firebaseapp.com',projectId:'oyra-in',storageBucket:'oyra-in.firebasestorage.app',messagingSenderId:'410082329133',appId:'1:410082329133:web:fb94c1590faeb17ea42ee4'};
 /* The owner's Gmail (full access). */
 window.OWNER_EMAIL='oyra.inshop@gmail.com';
 </script>
@@ -72,7 +72,22 @@ input,select{width:100%;font:inherit;padding:8px 10px;border-radius:8px;border:1
 .row{display:flex;gap:8px}
 .inv h2{margin:0;font-family:Georgia,serif;letter-spacing:3px;color:var(--pr)}
 .mu{color:var(--mu)}
-@media(max-width:760px){aside{width:64px}aside a span,.tag{display:none}.logo{font-size:13px;letter-spacing:1px}.two{grid-template-columns:1fr}main{padding:14px}}
+@media(max-width:760px){
+ #app{flex-direction:column-reverse}
+ aside{width:100%;flex-direction:row;align-items:center;overflow-x:auto;padding:6px 8px;gap:2px;border-right:0!important;border-top:1px solid rgba(255,255,255,.15);-webkit-overflow-scrolling:touch}
+ aside .logo,aside .tag,aside #sv,aside>div[style*="flex:1"]{display:none}
+ #nav{display:flex;gap:2px}
+ aside a{flex-direction:column;align-items:center;gap:1px;padding:6px 10px;font-size:11px;white-space:nowrap;flex-shrink:0}
+ aside button{flex-shrink:0;margin:0 4px!important}
+ aside button span{display:none}
+ main{padding:12px;min-height:0}
+ .two{grid-template-columns:1fr}
+ .grid{grid-template-columns:1fr 1fr;gap:8px}
+ .v{font-size:19px}
+ input,select{font-size:16px}
+ h1{font-size:18px}
+ .top button{padding:7px 10px}
+}
 .pb{border:2px dashed var(--bd);border-radius:12px;padding:8px;text-align:center}.pb:hover{border-color:var(--pr)}.pdz{padding:22px 10px;cursor:pointer;color:var(--mu);border-radius:8px}.pdz:hover{color:var(--pr2);background:rgba(168,70,127,.08)}
 .pk{display:flex;align-items:center;gap:8px;padding:6px 10px;border:1px solid var(--bd);border-radius:8px;background:var(--bg);cursor:pointer;min-height:42px}.pl{max-height:220px;overflow:auto;border:1px solid var(--bd);border-radius:8px;margin-top:4px;background:var(--card)}.po{display:flex;gap:8px;align-items:center;padding:6px 10px;cursor:pointer}.po:hover{background:var(--bd)}
 #L{position:fixed;inset:0;z-index:20;background:linear-gradient(135deg,#000,#1a1406);display:flex;align-items:center;justify-content:center;color:#f5efe0;padding:16px;text-align:center}.lb .logo,.lb .tag{color:#e8c55a}.lb{background:rgba(232,197,90,.06);border:1px solid rgba(232,197,90,.35);border-radius:16px;padding:32px 28px;max-width:360px}.lb .logo{font-size:34px}.lb p{color:#cdbf94;margin:14px 0}.lb button.p{background:linear-gradient(135deg,#b8901f,#e8c55a);color:#111}.lb button{width:100%;margin-top:8px}
@@ -102,7 +117,7 @@ function onStaff(l){STF=l;if(tab==='staff')render()}
 function onAuth(role,email){ROLE=role;EMAIL=email||'';const L=$('L');
  if(role){L.style.display='none';if(!O()&&!['dash','sales','items','cust'].includes(tab))tab='dash';sv(EMAIL+' \u00b7 '+role);render()}
  else{S={items:[],cust:[],inv:[],exp:[],pur:[],cat:[]};L.style.display='flex';$('lm').textContent=email?email+' is not approved yet. Ask the owner to add this email under Staff.':'Sign in to continue';$('lg').style.display=email?'none':'';$('lo').style.display=email?'':'none'}}
-function authErr(e){$('lm').textContent=e.code?'Sign-in error: '+e.code:(e.message||'Error');$('lg').style.display=window.FB?'':'none'}
+function authErr(e){const bad=e.code&&e.code.indexOf('api-key-not-valid')>-1;$('lm').textContent=bad?'The Firebase apiKey in index.html is not correct. Copy it again from Firebase (Project settings > Your apps) and replace the apiKey line.':e.code?'Sign-in error: '+e.code:(e.message||'Error');$('lg').style.display=window.FB?'':'none'}
 function staff(){return head('Staff access',`<button class="p" onclick="addStaff()">+ Add staff</button>`)+`<div class="card"><p class="mu">Owner: ${EMAIL}. Staff sign in with their own Google account. They can bill, see stock and customers, but cannot see cost, profit, expenses, reports or staff settings.</p><div class="tw"><table>${STF.map(e=>`<tr><td>${e}</td><td class="r"><button class="s" onclick="FB.delStaff('${e}')">Remove</button></td></tr>`).join('')||'<tr><td class="mu">No staff added yet.</td></tr>'}</table></div></div>`}
 function addStaff(){modal('Add staff',`<label>Gmail address</label><input id="se" type="email" placeholder="name@gmail.com">`,()=>{const e=$('se').value.trim().toLowerCase();if(!/^\S+@\S+\.\S+$/.test(e))return false;FB.addStaff(e)})}
 let HSV=false;try{HSV=localStorage.getItem('oyra-hsv')==='1'}catch(e){}
@@ -155,6 +170,7 @@ const TABS=[['dash','▦','Dashboard'],['sales','🧾','Sales Invoices'],['items
 function go(t){tab=t;render()}
 function render(){if(!ROLE)return;
  $('nav').innerHTML=TABS.filter(t=>O()||['dash','sales','items','cust'].includes(t[0])).map(t=>`<a class="${t[0]===tab?'on':''}" onclick="go('${t[0]}')">${t[1]} <span>${t[2]}</span></a>`).join('');
+ {const on=document.querySelector('#nav a.on');if(on&&innerWidth<=760&&on.scrollIntoView)on.scrollIntoView({inline:'center',block:'nearest'})}
  $('v').innerHTML=({dash,sales,items,pur,cust,exp,rep,staff})[tab]();
 }
 const head=(t,btn)=>`<div class="top"><h1>${t}</h1><div><button onclick="window.print()">⬇ PDF</button> ${btn||''}</div></div>`;
